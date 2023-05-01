@@ -17,10 +17,8 @@
         <tr>
             <th>id</th>
             <th>email</th>
-<%--            <th>password</th>--%>
             <th>name</th>
-<%--            <th>birth</th>--%>
-<%--            <th>mobile</th>--%>
+            <th>삭제</th>
         </tr>
         <%-- items: 반복할 대상, var: 반복변수 --%>
         <%-- for(StudentDTO s: studentList) --%>
@@ -28,12 +26,15 @@
             <tr>
                 <td>${member.id}</td>
                 <td>${member.memberEmail}</td>
-<%--                <td>${member.memberPassword}</td>--%>
                 <td>${member.memberName}</td>
-<%--                <td>${member.memberBirth}</td>--%>
-<%--                <td>${member.memberMobile}</td>--%>
+                <td><button onclick="delete_info(${member.id})">삭제</button></td>
             </tr>
         </c:forEach>
     </table>
 </body>
+<script>
+    const delete_info = (id) => {
+      location.href = "/delete?id="+id;
+    }
+</script>
 </html>

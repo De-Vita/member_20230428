@@ -19,7 +19,7 @@
     </script>
 </head>
 <body>
-<form action="/login" method="post" onsubmit="return fun1('${loginResult}')">
+<form action="/login" method="post">
     <div><input type="text" name="memberEmail" placeholder="이메일"></div>
     <div><input type="text" name="memberPassword" placeholder="비밀번호"></div>
     <div><input type="submit" value="로그인"></div>

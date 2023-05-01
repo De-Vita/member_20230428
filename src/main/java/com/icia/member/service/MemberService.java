@@ -11,6 +11,11 @@ import java.util.List;
 public class MemberService {
     @Autowired
     MemberRepository memberRepository;
+
+    public void delete(Long id) {
+        memberRepository.delete(id);
+    }
+
     public int save(MemberDTO memberDTO) {
         int result = memberRepository.save(memberDTO);
         return result;
@@ -32,5 +37,14 @@ public class MemberService {
         } else {
             return memberDTOList;
         }
+    }
+
+    public MemberDTO findById(Long id) {
+        MemberDTO memberDTO = memberRepository.findById(id);
+        return memberDTO;
+    }
+
+    public void update(MemberDTO memberDTO) {
+        memberRepository.update(memberDTO);
     }
 }

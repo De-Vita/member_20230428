@@ -12,6 +12,7 @@
 </head>
 <body>
     <h2>memberMain.jsp</h2>
-    <h2>${loginResult.memberName}님 안녕하세요</h2>
+    <h2>${result.memberName}님 안녕하세요</h2>
+    <a href="/member?id=${result.id}">상세 조회</a>
 </body>
 </html>

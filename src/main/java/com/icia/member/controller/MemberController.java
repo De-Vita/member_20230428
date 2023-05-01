@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -35,15 +36,14 @@ public class MemberController {
 
 
     @PostMapping("/login")
-    public String login(@ModelAttribute MemberDTO memberDTO, Model model, HttpSession session) {
+    public String login(@ModelAttribute MemberDTO memberDTO, Model model) {
         MemberDTO loginResult = memberService.login(memberDTO);
         System.out.println("loginResult = " + loginResult);
+        model.addAttribute("result", loginResult);
         if (loginResult != null) {
-            session.setAttribute("loginResult", loginResult);
-            model.addAttribute("loginResult", loginResult);
             return "memberMain";
         } else {
-            return "redirect:/memberLogin";
+            return "memberLogin";
         }
     }
 
@@ -57,7 +57,30 @@ public class MemberController {
         return "memberList";
     }
 
-//    @GetMapping("/member")
-//    public String findById()
+    @GetMapping("/member")
+    public String findById(@RequestParam("id") Long id, Model model) {
+        MemberDTO memberDTO = memberService.findById(id);
+        model.addAttribute("memberDetail", memberDTO);
+        return "memberDetail";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") Long id, Model model) {
+        memberService.delete(id);
+        return "redirect:/members";
+    }
+
+    @GetMapping("/update")
+    public String updateForm(@RequestParam("id") Long id, Model model) {
+        MemberDTO memberDTO = memberService.findById(id);
+        model.addAttribute("member", memberDTO);
+        return "memberUpdate";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute MemberDTO memberDTO) {
+        memberService.update(memberDTO);
+        return "redirect:/member?id="+memberDTO.getId();
+    }
 
 }
